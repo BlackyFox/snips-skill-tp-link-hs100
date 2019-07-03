@@ -65,7 +65,7 @@ class Skill_TPL_HS100(object):
         self.start_blocking()
 
     # --> Sub callback function, one per intent
-    def turnOn(self, hermes, intent_message):
+    def turnOnHS100(self, hermes, intent_message):
         retmsg = ""
         try:
             sock_tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -79,7 +79,7 @@ class Skill_TPL_HS100(object):
         # terminate the session first if not continue
         hermes.publish_end_session(intent_message.session_id, retmsg)
 
-    def turnOff(self, hermes, intent_message):
+    def turnOffHS100(self, hermes, intent_message):
         retmsg = ""
         try:
             sock_tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -99,10 +99,10 @@ class Skill_TPL_HS100(object):
     # --> Master callback function, triggered everytime an intent is recognized
     def master_intent_callback(self,hermes, intent_message):
         coming_intent = intent_message.intent.intent_name
-        if coming_intent == 'turnOn':
-            self.turnOn(hermes, intent_message)
-        if coming_intent == 'turnOff':
-            self.turnOff(hermes, intent_message)
+        if coming_intent == 'turnOnHS100':
+            self.turnOnHS100(hermes, intent_message)
+        if coming_intent == 'turnOffHS100':
+            self.turnOffHS100(hermes, intent_message)
 
         # more callback and if condition goes here...
 
