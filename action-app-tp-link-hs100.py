@@ -75,7 +75,7 @@ class Skill_TPL_HS100(object):
             data = sock_tcp.recv(2048)
             sock_tcp.close()
             retmsg = self.decrypt(data[4:])
-        else:
+        except:
             retmsg = ("Could not connect to host %s:%s" %(str(ip), str(port)))
         # terminate the session first if not continue
         hermes.publish_end_session(intent_message.session_id, retmsg)
@@ -90,7 +90,7 @@ class Skill_TPL_HS100(object):
             data = sock_tcp.recv(2048)
             sock_tcp.close()
             retmsg = self.decrypt(data[4:])
-        else:
+        except:
             retmsg = ("Could not connect to host %s:%s" %(str(ip), str(port)))
         # terminate the session first if not continue
         hermes.publish_end_session(intent_message.session_id, retmsg)
