@@ -70,22 +70,24 @@ class Skill_TPL_HS100(object):
         retmsg = ""
         try:
             sock_tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            sock_tcp.connect((ip, port))
+            sock_tcp.connect((ip, int(port)))
             sock_tcp.send(self.encrypt('on'))
             data = sock_tcp.recv(2048)
             sock_tcp.close()
             retmsg = self.decrypt(data[4:])
         except:
             retmsg = ("Could not connect to host %s:%s" %(str(ip), str(port)))
+
+        hermes.publish_start_session_notification(intent_message.site_id, "Prise ON", "TP-Link-HS100")
         # terminate the session first if not continue
-        hermes.publish_end_session(intent_message.session_id, retmsg)
+        hermes.publish_end_session(intent_message.session_id, "")
 
     def turnOffHS100(self, hermes, intent_message):
         print("Eteindre la prise, recu!")
         retmsg = ""
         try:
             sock_tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            sock_tcp.connect((ip, port))
+            sock_tcp.connect((ip, int(port)))
             sock_tcp.send(self.encrypt('off'))
             data = sock_tcp.recv(2048)
             sock_tcp.close()
@@ -93,7 +95,7 @@ class Skill_TPL_HS100(object):
         except:
             retmsg = ("Could not connect to host %s:%s" %(str(ip), str(port)))
         # terminate the session first if not continue
-        hermes.publish_end_session(intent_message.session_id, retmsg)
+        hermes.publish_end_session(intent_message.session_id, "")
 
 
     # More callback function goes here...
