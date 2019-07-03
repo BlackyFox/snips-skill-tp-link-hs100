@@ -44,9 +44,9 @@ class Skill_TPL_HS100(object):
     def __init__(self):
         # get the configuration if needed
         try:
-            self.config = SnipsConfigParser.read_configuration_file(CONFIG_INI)
+            config = SnipsConfigParser.read_configuration_file(CONFIG_INI)
         except :
-            self.config = None
+            config = None
         ip = None
         port = None
 
