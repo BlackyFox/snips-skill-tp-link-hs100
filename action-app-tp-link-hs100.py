@@ -66,6 +66,7 @@ class Skill_TPL_HS100(object):
 
     # --> Sub callback function, one per intent
     def turnOnHS100(self, hermes, intent_message):
+        print("Allumer la prise, recu!")
         retmsg = ""
         try:
             sock_tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -80,6 +81,7 @@ class Skill_TPL_HS100(object):
         hermes.publish_end_session(intent_message.session_id, retmsg)
 
     def turnOffHS100(self, hermes, intent_message):
+        print("Eteindre la prise, recu!")
         retmsg = ""
         try:
             sock_tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
