@@ -61,6 +61,7 @@ class Skill_TPL_HS100(object):
                     port = None
         IP = ip
         PORT = port
+        print("HS100 : %s:%s" %(IP, PORT))
         # start listening to MQTT
         self.start_blocking()
 
