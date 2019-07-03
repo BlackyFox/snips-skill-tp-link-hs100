@@ -71,10 +71,10 @@ class Skill_TPL_HS100(object):
         try:
             sock_tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             sock_tcp.connect((ip, int(port)))
-            sock_tcp.send(self.encrypt('on'))
+            sock_tcp.send(self.hs100encrypt('on'))
             data = sock_tcp.recv(2048)
             sock_tcp.close()
-            retmsg = self.decrypt(data[4:])
+            retmsg = self.hs100decrypt(data[4:])
         except:
             retmsg = ("Could not connect to host %s:%s" %(str(ip), str(port)))
 
@@ -88,10 +88,10 @@ class Skill_TPL_HS100(object):
         try:
             sock_tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             sock_tcp.connect((ip, int(port)))
-            sock_tcp.send(self.encrypt('off'))
+            sock_tcp.send(self.hs100encrypt('off'))
             data = sock_tcp.recv(2048)
             sock_tcp.close()
-            retmsg = self.decrypt(data[4:])
+            retmsg = self.hs100decrypt(data[4:])
         except:
             retmsg = ("Could not connect to host %s:%s" %(str(ip), str(port)))
         # terminate the session first if not continue
@@ -103,9 +103,9 @@ class Skill_TPL_HS100(object):
     # --> Master callback function, triggered everytime an intent is recognized
     def master_intent_callback(self,hermes, intent_message):
         coming_intent = intent_message.intent.intent_name
-        if coming_intent == 'turnOnHS100':
+        if coming_intent == 'HS100On':
             self.turnOnHS100(hermes, intent_message)
-        if coming_intent == 'turnOffHS100':
+        if coming_intent == 'HS100Off':
             self.turnOffHS100(hermes, intent_message)
 
         # more callback and if condition goes here...
@@ -115,7 +115,7 @@ class Skill_TPL_HS100(object):
         with Hermes(MQTT_ADDR) as h:
             h.subscribe_intents(self.master_intent_callback).start()
 
-    def encrypt(string):
+    def hs100encrypt(string):
     	key = 171
     	result = pack('>I', len(string))
 	for i in string:
@@ -124,7 +124,7 @@ class Skill_TPL_HS100(object):
 		result += chr(a)
 	return result
 
-    def decrypt(string):
+    def hs100decrypt(string):
 	key = 171
 	result = ""
 	for i in string:
