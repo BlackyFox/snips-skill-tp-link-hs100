@@ -72,7 +72,7 @@ class Skill_TPL_HS100(object):
         try:
             sock_tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             sock_tcp.connect((ip, int(port)))
-            sock_tcp.send(self.hs100encrypt('on'))
+            sock_tcp.send(self.hs100encrypt(commands['on']))
             data = sock_tcp.recv(2048)
             sock_tcp.close()
             retmsg = self.hs100decrypt(data[4:])
@@ -89,7 +89,7 @@ class Skill_TPL_HS100(object):
         try:
             sock_tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             sock_tcp.connect((ip, int(port)))
-            sock_tcp.send(self.hs100encrypt('off'))
+            sock_tcp.send(self.hs100encrypt(commands['off']))
             data = sock_tcp.recv(2048)
             sock_tcp.close()
             retmsg = self.hs100decrypt(data[4:])
